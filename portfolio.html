@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Портфолио Даниила Тимофеева — графического дизайнера." />
+<title>Портфолио — Даниил Тимофеев</title>
+<style>
+:root {
+  --gap: 18px;
+  --radius: 28px;
+  --container: 1200px;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { background: #0A0A0A; min-height: 100vh; }
+
+@font-face { font-family: 'MigraC';   src: url('fonts/MigraC.ttf')   format('truetype'); font-display: swap; }
+@font-face { font-family: 'Kinetika'; src: url('fonts/Kinetika.ttf') format('truetype'); font-display: swap; }
+
+/* ── АНИМАЦИЯ ПЕРЕХОДА ── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-content {
+  animation: pageFadeIn 0.25s var(--ease) both;
+  transform: translateZ(0);
+}
+.page-content.fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+  pointer-events: none;
+}
+
+/* ── ШАПКА ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #6b6b6b;
+  font-family: 'Kinetika', sans-serif;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  outline: none;
+}
+.back-btn:hover { color: #fff; }
+.back-btn:focus-visible { outline: 2px solid #fff; border-radius: 8px; }
+.back-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.back-btn:hover .back-icon { background: #222; border-color: rgba(255,255,255,0.12); }
+.back-icon svg { width: 16px; height: 16px; }
+.header-title { font-family: 'MigraC', serif; font-size: 18px; font-weight: 400; color: #fff; }
+.header-count { font-family: 'Kinetika', sans-serif; font-size: 14px; color: #3a3a3a; min-width: 60px; text-align: right; }
+
+/* ── ФИЛЬТРЫ ── */
+.filters-wrap {
+  padding: 0 32px 28px;
+  max-width: var(--container);
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filters-wrap::-webkit-scrollbar { display: none; }
+.filters { display: flex; gap: 8px; width: max-content; }
+.filter-btn {
+  flex-shrink: 0;
+  font-family: 'Kinetika', sans-serif;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 99px;
+  border: 1px solid #1B1B1B;
+  background: linear-gradient(135deg, #090909 35%, #191818 100%);
+  color: #6b6b6b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  outline: none;
+}
+.filter-btn:hover { color: #ccc; border-color: rgba(255,255,255,0.12); }
+.filter-btn:focus-visible { outline: 2px solid #fff; }
+.filter-btn.active { background: #fff; color: #000; border-color: #fff; }
+
+/* ── СЕТКА ── */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+  padding: 0 32px 80px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+/* ── КАРТОЧКА ── */
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #090909 35%, #191818 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: var(--radius);
+  overflow: hidden;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.portfolio-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-4px); }
+.portfolio-card:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
+.portfolio-card.hidden { display: none; }
+
+.card-cover { width: 100%; aspect-ratio: 4/3; overflow: hidden; background: #111; position: relative; }
+.card-cover img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s var(--ease);
+  content-visibility: auto;
+}
+.portfolio-card:hover .card-cover img { transform: scale(1.04); }
+
+.card-info { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; }
+.card-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.card-label { font-family: 'Kinetika', sans-serif; font-size: 12px; color: #4a4a4a; }
+.card-name {
+  font-family: 'MigraC', serif; font-size: 20px; font-weight: 400; color: #fff;
+  line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-btn {
+  flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
+  background: #1F1F1F; display: flex; align-items: center; justify-content: center;
+  color: #6b6b6b; transition: background 0.2s ease, color 0.2s ease;
+}
+.portfolio-card:hover .card-btn { background: #fff; color: #000; }
+.card-btn svg { width: 17px; height: 17px; }
+
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: #fff; color: #000;
+  font-family: 'Kinetika', sans-serif; font-size: 11px; font-weight: 500;
+  padding: 4px 10px; border-radius: 99px; letter-spacing: 0.02em;
+}
+
+/* ── ПУСТОЕ СОСТОЯНИЕ ── */
+.empty {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 80px 20px; gap: 8px;
+}
+.empty-icon { font-size: 32px; opacity: 0.2; }
+.empty-text { font-family: 'Kinetika', sans-serif; font-size: 15px; color: #3a3a3a; }
+
+/* ── МОДАЛКА-КЕЙС ── */
+.case-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  will-change: opacity;
+}
+.case-overlay.open { opacity: 1; pointer-events: all; }
+
+.case-modal {
+  background: linear-gradient(135deg, #0d0d0d 35%, #1a1a1a 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: 32px;
+  width: 100%; max-width: 720px;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.35s var(--ease);
+  position: relative;
+  flex-shrink: 0;
+}
+.case-overlay.open .case-modal { transform: scale(1) translateY(0); }
+
+.case-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.5); border: 1px solid #2a2a2a;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: #888; z-index: 10;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.case-close:hover { background: #fff; color: #000; }
+.case-close svg { width: 14px; height: 14px; }
+
+.case-cover { width: 100%; background: #111; border-radius: 32px 32px 0 0; overflow: hidden; }
+.case-cover img { width: 100%; height: auto; display: block; }
+
+.case-body { padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+
+.case-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.case-tag {
+  font-family: 'Kinetika', sans-serif; font-size: 12px; color: #555;
+  background: #1a1a1a; border: 1px solid #2a2a2a;
+  padding: 5px 14px; border-radius: 99px;
+}
+.case-date { font-family: 'Kinetika', sans-serif; font-size: 12px; color: #444; }
+.case-title { font-family: 'MigraC', serif; font-size: 36px; font-weight: 400; color: #fff; line-height: 1.1; }
+.case-desc { font-family: 'Kinetika', sans-serif; font-size: 15px; color: #6b6b6b; line-height: 1.7; white-space: pre-wrap; }
+.case-divider { width: 100%; height: 1px; background: #1e1e1e; }
+
+.case-gallery { display: flex; flex-direction: column; gap: 12px; }
+.case-gallery-title {
+  font-family: 'Kinetika', sans-serif; font-size: 12px; color: #444;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px;
+}
+.gallery-grid { display: flex; flex-direction: column; gap: 10px; }
+.gallery-item { border-radius: 16px; overflow: hidden; background: #111; }
+.gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.4s var(--ease); }
+.gallery-item:hover img { transform: scale(1.02); }
+
+.case-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; background: #1a1a1a; border: 1px solid #2a2a2a;
+  border-radius: 18px; text-decoration: none; color: #fff;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.case-link:hover { background: #222; border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+.case-link-text { display: flex; flex-direction: column; gap: 2px; }
+.case-link-label { font-family: 'Kinetika', sans-serif; font-size: 12px; color: #555; }
+.case-link-name  { font-family: 'Kinetika', sans-serif; font-size: 15px; font-weight: 500; }
+.case-link-arrow {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  color: #000; flex-shrink: 0;
+}
+.case-link-arrow svg { width: 15px; height: 15px; }
+
+/* ── АДАПТИВ ── */
+@media (max-width: 600px) {
+  .header { padding: 20px 16px; }
+  .filters-wrap { padding: 0 16px 20px; }
+  .portfolio-grid { padding: 0 16px 60px; gap: 12px; grid-template-columns: 1fr; }
+  .case-overlay { padding: 16px 12px; }
+  .case-body { padding: 20px 18px; gap: 18px; }
+  .case-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="back-btn" aria-label="Назад на главную">
+    <span class="back-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </span>
+    Назад
+  </a>
+  <span class="header-title">Портфолио</span>
+  <span class="header-count" id="cardCount"></span>
+</header>
+
+<div class="filters-wrap">
+  <div class="filters" role="tablist" aria-label="Категории работ">
+    <button class="filter-btn active" data-filter="all"    role="tab" aria-selected="true">Все</button>
+    <button class="filter-btn"        data-filter="site"   role="tab" aria-selected="false">Сайты</button>
+    <button class="filter-btn"        data-filter="banner" role="tab" aria-selected="false">Баннеры</button>
+    <button class="filter-btn"        data-filter="logo"   role="tab" aria-selected="false">Логотипы</button>
+    <button class="filter-btn"        data-filter="smm"    role="tab" aria-selected="false">SMM</button>
+    <button class="filter-btn"        data-filter="tg"     role="tab" aria-selected="false">Оформление канала</button>
+    <button class="filter-btn"        data-filter="print"  role="tab" aria-selected="false">Печать</button>
+    <button class="filter-btn"        data-filter="motion" role="tab" aria-selected="false">Моушн</button>
+    <button class="filter-btn"        data-filter="brand"  role="tab" aria-selected="false">Брендинг</button>
+  </div>
+</div>
+
+<div class="page-content">
+  <main class="portfolio-grid" id="portfolioGrid">
+
+     <!-- Сайт Cosmetolog -->
+<div class="portfolio-card" data-category="site" aria-label="Сайт Cosmetolog" role="button" tabindex="0">
+  <script type="application/json" class="case-data">{
+    "title":    "Cosmetolog",
+    "tag":      "Сайты",
+    "date":     "Июнь 2026",
+    "desc":     "Лендинг для частного косметолога. Задача — вызвать доверие к специалисту и подтолкнуть к записи на процедуру. Светлая чистая эстетика, мягкая типографика и акцент на «до/после», прайс и услуги. Адаптивная вёрстка с удобной формой записи на мобильных.",
+    "cover":    "img/portfolio/website/cosmetolog/Portfolio.png",
+    "gallery": [
+      "img/portfolio/website/cosmetolog/Portfolio.png",
+      "img/portfolio/website/cosmetolog/Portfolio1.png",
+     "img/portfolio/website/cosmetolog/Portfolio2.png",
+      "img/portfolio/website/cosmetolog/Portfolio3.png"
+    ]
+  }</script>
+  <div class="card-cover">
+    <img src="img/portfolio/website/cosmetolog/Portfolio.png" alt="Cosmetolog" loading="lazy">
+  </div>
+  <div class="card-info">
+    <div class="card-text">
+      <span class="card-label">Сайты</span>
+      <span class="card-name">Cosmetolog</span>
+    </div>
+    <span class="card-btn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </div>
+</div>
+
+    <!-- Сайт EVENT DJ -->
+<div class="portfolio-card" data-category="site" aria-label="Сайт EVENT DJ" role="button" tabindex="0">
+  <script type="application/json" class="case-data">{
+    "title":    "EVENT DJ",
+    "tag":      "Сайты",
+    "date":     "Июнь 2026",
+    "desc":     "Лендинг для диджея, выступающего на частных и корпоративных мероприятиях. Задача — передать энергетику живых сетов и упростить бронирование. Тёмная тема с фирменным оранжевым акцентом, крупная акцидентная типографика, чёткая иерархия блоков и адаптивная вёрстка под мобильные устройства.",
+    "cover":    "img/portfolio/website/ken/Portfolio.png",
+    "gallery": [
+      "img/portfolio/website/ken/Portfolio.png",
+      "img/portfolio/website/ken/Portfolio1.png",
+      "img/portfolio/website/ken/Portfolio2.png",
+      "img/portfolio/website/ken/Portfolio3.png"
+    ]
+  }</script>
+  <div class="card-cover">
+    <img src="img/portfolio/website/ken/Portfolio.png" alt="EVENT DJ" loading="lazy">
+  </div>
+  <div class="card-info">
+    <div class="card-text">
+      <span class="card-label">Сайты</span>
+      <span class="card-name">EVENT DJ</span>
+    </div>
+    <span class="card-btn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </div>
+</div>
+
+        <!-- Баннер Na Gadget 44 -->
+<div class="portfolio-card" data-category="banner" aria-label="Баннер Na Gadget 44" role="button" tabindex="0">
+  <script type="application/json" class="case-data">{
+    "title":    "Na Gadget 44",
+    "tag":      "Баннеры",
+    "date":     "2026",
+    "desc":     "Рекламный баннер для магазина аксессуаров для смартфонов.",
+    "cover":    "img/portfolio/banner/Превью1.png",
+    "gallery": [
+      "img/portfolio/banner/Баннер1.png"
+    ]
+  }</script>
+  <div class="card-cover">
+    <img src="img/portfolio/banner/Превью1.png" alt="Na Gadget 44" loading="lazy">
+  </div>
+  <div class="card-info">
+    <div class="card-text">
+      <span class="card-label">Баннеры</span>
+      <span class="card-name">Na Gadget 44</span>
+    </div>
+    <span class="card-btn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </div>
+</div>
+
+    <!-- Визитка Pablo -->
+    <div class="portfolio-card" data-category="print" aria-label="Визитка Pablo" role="button" tabindex="0">
+      <script type="application/json" class="case-data">{
+        "title":    "Визитка Pablo",
+        "tag":      "Печать",
+        "date":     "Март 2026",
+        "desc":     "Визитка для цветочного онлайн-магазина. Задача: создать современный дизайн, ориентированный на молодежную аудиторию. Акцент на минимализм, яркие акценты и удобство восприятия ключевой информации.",
+        "cover":    "img/portfolio/print/Превью1.png",
+        "gallery": [
+          "img/portfolio/print/Визитка1.png",
+          "img/portfolio/print/Визитка1_1.png"
+        ]
+      }</script>
+      <div class="card-cover">
+        <img src="img/portfolio/print/Превью1.png" alt="Визитка Pablo" loading="lazy">
+      </div>
+      <div class="card-info">
+        <div class="card-text">
+          <span class="card-label">Печать</span>
+          <span class="card-name">Визитка Pablo</span>
+        </div>
+        <span class="card-btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Добавляй новые карточки сюда ↓ -->
+
+    <div class="portfolio-card" data-category="print" aria-label="Визитка 2" role="button" tabindex="0">
+      <script type="application/json" class="case-data">{
+        "title":    "Визитка Pablo 2",
+        "tag":      "Печать",
+        "date":     "Март 2026",
+        "desc":     "Визитка для онлайн-магазина. Задача: создать элегантный дизайн для взрослой аудитории. Акцент на статусность, качество и доверие. Использована классическая типографика и сдержанная цветовая гамма.",
+        "cover":    "img/portfolio/print/Превью2.png",
+        "gallery": [
+          "img/portfolio/print/test1.png",
+          "img/portfolio/print/Визитка2_2.png"
+        ]
+      }</script>
+      <div class="card-cover">
+        <img src="img/portfolio/print/Превью2.png" alt="Визитка 2" loading="lazy">
+      </div>
+      <div class="card-info">
+        <div class="card-text">
+          <span class="card-label">Печать</span>
+          <span class="card-name">Визитка Pablo 2</span>
+        </div>
+        <span class="card-btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="emptyState" class="empty" style="display:none;">
+    <div class="empty-icon">◻</div>
+    <div class="empty-text">В этой категории пока нет работ</div>
+  </div>
+</div>
+
+<!-- Модалка — вне page-content, чтобы position:fixed работал корректно -->
+<div class="case-overlay" id="caseOverlay" role="dialog" aria-modal="true" aria-label="Кейс">
+  <div class="case-modal">
+    <button class="case-close" id="caseClose" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="case-cover"><img id="caseCover" src="" alt="" loading="lazy"></div>
+    <div class="case-body">
+      <div class="case-meta">
+        <span class="case-tag"  id="caseTag"></span>
+        <span class="case-date" id="caseDate"></span>
+      </div>
+      <div class="case-title" id="caseTitle"></div>
+      <div class="case-desc"  id="caseDesc"></div>
+      <div class="case-divider"></div>
+      <div class="case-gallery">
+        <div class="case-gallery-title">Работы</div>
+        <div class="gallery-grid" id="caseGallery"></div>
+      </div>
+      <a class="case-link" id="caseLink" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="case-link-text">
+          <span class="case-link-label">Посмотреть проект</span>
+          <span class="case-link-name" id="caseLinkName"></span>
+        </div>
+        <div class="case-link-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  'use strict';
+
+  const RECENT_COUNT = 6;
+
+  const cards      = Array.from(document.querySelectorAll('.portfolio-card'));
+  const btns       = document.querySelectorAll('.filter-btn');
+  const counter    = document.getElementById('cardCount');
+  const emptyState = document.getElementById('emptyState');
+  const overlay    = document.getElementById('caseOverlay');
+  const els = {
+    cover:    document.getElementById('caseCover'),
+    tag:      document.getElementById('caseTag'),
+    date:     document.getElementById('caseDate'),
+    title:    document.getElementById('caseTitle'),
+    desc:     document.getElementById('caseDesc'),
+    gallery:  document.getElementById('caseGallery'),
+    link:     document.getElementById('caseLink'),
+    linkName: document.getElementById('caseLinkName'),
+  };
+
+  function plural(n, one, few, many) {
+    const m = n % 100;
+    if (m >= 11 && m <= 19) return many;
+    switch (n % 10) {
+      case 1: return one;
+      case 2: case 3: case 4: return few;
+      default: return many;
+    }
+  }
+
+  function filter(cat) {
+    let visible = 0;
+    cards.forEach((card, i) => {
+      const show = cat === 'all' ? i < RECENT_COUNT : card.dataset.category === cat;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    emptyState.style.display = visible === 0 ? 'flex' : 'none';
+    counter.textContent = `${visible} ${plural(visible, 'работа', 'работы', 'работ')}`;
+  }
+
+  document.querySelector('.filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    filter(btn.dataset.filter);
+  });
+
+  filter('all');
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target === '_blank') return;
+    e.preventDefault();
+    document.querySelector('.page-content').classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 180);
+  });
+
+  function openCase(data) {
+    els.cover.src  = data.cover  || '';
+    els.cover.alt  = data.title  || '';
+    els.tag.textContent   = data.tag   || '';
+    els.date.textContent  = data.date  || '';
+    els.title.textContent = data.title || '';
+    els.desc.textContent  = data.desc  || '';
+
+    if (data.link && data.link !== '#') {
+      els.link.href = data.link;
+      els.linkName.textContent = data.linkname || '';
+      els.link.style.display = '';
+    } else {
+      els.link.style.display = 'none';
+    }
+
+    const frag = document.createDocumentFragment();
+    (data.gallery || []).forEach(src => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      const img = document.createElement('img');
+      img.src     = src;
+      img.loading = 'lazy';
+      div.appendChild(img);
+      frag.appendChild(div);
+    });
+    els.gallery.innerHTML = '';
+    els.gallery.appendChild(frag);
+
+    overlay.classList.add('open');
+    overlay.scrollTop = 0;
+  }
+
+  function closeCase() {
+    overlay.classList.remove('open');
+  }
+
+  document.getElementById('portfolioGrid').addEventListener('click', e => {
+    const card = e.target.closest('.portfolio-card');
+    if (!card) return;
+    try {
+      const jsonEl = card.querySelector('.case-data');
+      const data = jsonEl
+        ? JSON.parse(jsonEl.textContent)
+        : JSON.parse(card.dataset.case || 'null');
+      if (data) openCase(data);
+    } catch (err) { console.error('case-data parse error:', err); }
+  });
+
+  document.getElementById('caseClose').addEventListener('click', closeCase);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeCase(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
+</script>
+</body>
+</html>

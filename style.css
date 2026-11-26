@@ -1,0 +1,193 @@
+/* ========================
+   ШРИФТЫ
+======================== */
+@font-face {
+    font-family: 'Kinetika';
+    src: url('assets/fonts/kinetika-medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Migra';
+    src: url('assets/fonts/Migra-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ========================
+   БАЗОВЫЕ СТИЛИ
+======================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0A0A0A; /* Фон сайта */
+    color: #FFFFFF;
+    font-family: 'Kinetika', sans-serif;
+    line-height: 1.4;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ========================
+   BENTO GRID
+======================== */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 40px 0;
+}
+
+/* Адаптив: мобильная версия — одна колонка */
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================
+   КАРТОЧКИ — БЕЗ ОБВОДКИ, БЕЗ АНИМАЦИЙ
+======================== */
+.bento-item {
+    background: linear-gradient(to bottom, #1a1a1a, #0f0f0f); /* Градиент внутри блока */
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+    /* НЕТ transition, НЕТ hover, НЕТ ::before с рамкой */
+}
+
+/* Размеры карточек */
+.bento-item.large {
+    grid-column: 500px;
+    grid-row: 500px;
+}
+
+.bento-item.portfolio-card,
+.bento-item.projects-card {
+    grid-column: 500px;
+    grid-row: 500px;
+}
+
+/* На мобильном все карточки становятся одинаковыми по размеру */
+@media (max-width: 768px) {
+    .bento-item.large,
+    .bento-item.portfolio-card,
+    .bento-item.projects-card {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+/* ========================
+   КОНТЕНТ ВНУТРИ КАРТОЧЕК
+======================== */
+.bento-content {
+    padding: 32px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Изображение в большой карточке */
+.bento-item.large img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid #333;
+}
+
+/* Заголовки (Migra) */
+.name, .title {
+    font-family: 'Migra', sans-serif;
+    font-weight: normal;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.name {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-family: 'Migra', sans-serif;
+    color: #FFFFFF;
+    font-size: 2.4rem;
+    letter-spacing: 0.5px;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* Описание (Kinetika, серый цвет) */
+.description, .label {
+    font-family: 'Kinetika', sans-serif;
+    color: #aaaaaa;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+/* Стрелочка-ссылка — БЕЗ АНИМАЦИИ */
+.arrow-link {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    background-color: #2a2a2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cccccc;
+    font-size: 1.6rem;
+    text-decoration: none;
+    /* НЕТ transition, НЕТ hover */
+}
+
+/* ========================
+   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ
+======================== */
+@media (max-width: 768px) {
+    .bento-item.large img {
+        height: 250px;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+
+    .title {
+        font-size: 2rem;
+        letter-spacing: 0.3px;
+    }
+
+    .arrow-link {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+        bottom: 24px;
+        right: 24px;
+    }
+
+    .bento-content {
+        padding: 24px;
+    }
+}

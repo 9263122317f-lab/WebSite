@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Проекты Даниила Тимофеева — графического дизайнера." />
+<title>Мои проекты — Даниил Тимофеев</title>
+<style>
+:root {
+  --gap: 18px;
+  --radius: 28px;
+  --container: 1200px;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0A0A0A;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+@font-face {
+  font-family: 'MigraC';
+  src: url('fonts/MigraC.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kinetika';
+  src: url('fonts/Kinetika.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* ── ШАПКА ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #6b6b6b;
+  font-family: 'Kinetika', sans-serif;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  outline: none;
+}
+.back-btn:hover { color: #fff; }
+.back-btn:focus-visible { outline: 2px solid #fff; border-radius: 8px; }
+.back-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.back-btn:hover .back-icon { background: #222; border-color: rgba(255,255,255,0.12); }
+.back-icon svg { width: 16px; height: 16px; }
+
+.header-title {
+  font-family: 'MigraC', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.header-count {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 14px;
+  color: #3a3a3a;
+}
+
+/* ── СЕТКА ПРОЕКТОВ ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+  padding: 8px 32px 80px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════
+   КАРТОЧКА ПРОЕКТА
+   Чтобы добавить новый проект — скопируй
+   весь блок <a class="project-card">…</a>
+   и замени данные внутри.
+═══════════════════════════════════════ */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #090909 35%, #191818 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.3s var(--ease), transform 0.18s var(--ease);
+  cursor: pointer;
+}
+.project-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+}
+.project-card:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Превью-изображение проекта */
+.project-cover {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #111;
+  position: relative;
+}
+.project-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+.project-card:hover .project-cover img { transform: scale(1.04); }
+
+/* Нижняя часть карточки */
+.project-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+}
+.project-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.project-label {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 12px;
+  color: #4a4a4a;
+}
+.project-name {
+  font-family: 'MigraC', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Кнопка-стрелка */
+.project-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #1F1F1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b6b6b;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.project-card:hover .project-btn {
+  background: #fff;
+  color: #000;
+}
+.project-btn svg { width: 17px; height: 17px; }
+
+/* ── ПУСТОЕ СОСТОЯНИЕ (если проектов нет) ── */
+.empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 12px;
+}
+.empty-text {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 15px;
+  color: #3a3a3a;
+}
+
+/* ── АДАПТИВ ── */
+@media (max-width: 600px) {
+  .header { padding: 20px 16px; }
+  .projects-grid { padding: 8px 16px 60px; gap: 12px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .header-title { font-size: 16px; }
+  .project-name { font-size: 18px; }
+}
+
+/* ── АНИМАЦИЯ ПЕРЕХОДА ── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-content {
+  animation: pageFadeIn 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+.page-content.fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.18s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.18s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="back-btn" aria-label="Назад на главную">
+    <span class="back-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+    </span>
+    Назад
+  </a>
+  <span class="header-title">Мои проекты</span>
+  <span class="header-count" id="projectCount"></span>
+</header>
+
+<div class="page-content"><main class="projects-grid" id="projectsGrid">
+
+  <!-- ═══════════════════════════════════════════════
+       ШАБЛОН КАРТОЧКИ ПРОЕКТА
+       Чтобы добавить новый проект:
+       1. Скопируй весь блок ниже (от <a> до </a>)
+       2. Вставь после последней карточки
+       3. Замени href, src картинки, label и name
+  ════════════════════════════════════════════════ -->
+  <a class="project-card" href="#" aria-label="DesignLife Tool">
+    <div class="project-cover">
+      <img src="img/projects/designlife.png" alt="DesignLife Tool"
+           onerror="this.parentElement.style.background='#111'">
+    </div>
+    <div class="project-info">
+      <div class="project-text">
+        <span class="project-label">Design project</span>
+        <span class="project-name">DesignLife Tool</span>
+      </div>
+      <span class="project-btn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- Добавляй новые карточки сюда ↓ -->
+
+</main>
+</div>
+
+<script>
+  // Считаем количество проектов и показываем в шапке
+  const count = document.querySelectorAll('.project-card').length;
+  document.getElementById('projectCount').textContent = count + ' ' + plural(count, 'проект', 'проекта', 'проектов');
+
+  function plural(n, one, few, many) {
+    const mod10 = n % 10, mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return one;
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return few;
+    return many;
+  }
+
+  // Плавный переход при клике на ссылки
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target === '_blank') return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector('.page-content').classList.add('fade-out');
+      setTimeout(() => { window.location.href = href; }, 180);
+    });
+  });
+
+</script>
+
+</body>
+</html>

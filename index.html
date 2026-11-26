@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Даниил Тимофеев — графический дизайнер. Портфолио, проекты и контакты." />
+<title>Даниил Тимофеев — Графический дизайнер</title>
+<style>
+:root {
+  --gap: 18px;
+  --radius: 36px;
+  --container: 1200px;
+  --card-bg: #161616;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0A0A0A;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@font-face {
+  font-family: 'MigraC';
+  src: url('fonts/MigraC.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kinetika';
+  src: url('fonts/Kinetika.ttf') format('truetype');
+  font-display: swap;
+}
+
+.bento-grid {
+  width: 100%;
+  max-width: var(--container);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 280px 280px 280px;
+  gap: var(--gap);
+  margin: 18px 18px 80px;
+  align-items: stretch;
+}
+
+.card {
+  background: linear-gradient(135deg, #090909 35%, #191818 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: var(--radius);
+  min-width: 0;
+  overflow: hidden;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.18s var(--ease);
+}
+.card:hover {
+  background: linear-gradient(135deg, #111 35%, #222 100%);
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+}
+.c1:hover, .c8:hover { transform: none; }
+
+.c1 { grid-column: span 6; grid-row: 1; }
+.c2 { grid-column: span 3; grid-row: 1; }
+.c3 { grid-column: span 3; grid-row: 1; }
+.c4 { grid-column: span 3; grid-row: 2; }
+.c5 { grid-column: span 3; grid-row: 2; }
+.c6 { grid-column: span 6; grid-row: 2; }
+.c7 { grid-column: span 6; grid-row: 3; }
+.c8 { grid-column: span 6; grid-row: 3; }
+
+.hero-card {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 28px;
+  position: relative;
+}
+.hero-eyebrow {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  font-family: 'Kinetika', sans-serif;
+  font-size: 13px;
+  color: #6b6b6b;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+.hero-photo-wrap {
+  flex-shrink: 0;
+  width: 190px;
+  height: 210px;
+  border-radius: 0 24px 24px 24px;
+  overflow: hidden;
+  margin-top: 32px;
+  align-self: flex-end;
+}
+.hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-info { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.hero-name { font-family: 'MigraC', serif; font-size: 44px; font-weight: 400; line-height: 1; color: #fff; }
+.hero-desc { font-family: 'Kinetika', sans-serif; font-size: 15px; color: #6b6b6b; line-height: 1.6; }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+}
+.panel-img {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.panel-img img { width: 80%; height: 80%; object-fit: contain; }
+.panel-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-shrink: 0;
+}
+.panel-text { display: flex; flex-direction: column; }
+.eyebrow { font-family: 'Kinetika', sans-serif; font-size: 15px; color: #6b6b6b; }
+.title { font-family: 'MigraC', serif; font-size: 25px; font-weight: 400; color: #fff; line-height: 1.1; }
+
+.btn {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #1F1F1F;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8F8F8F;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  outline: none;
+}
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.btn svg { width: 20px; height: 20px; }
+.btn:hover, .card:hover .btn { background: #fff; color: #000; }
+
+.icons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.icon-item {
+  aspect-ratio: 1;
+  background: var(--card-bg);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.icon-item img { width: 55%; height: 55%; object-fit: contain; transition: transform 0.18s ease; }
+.card:hover .icon-item { background: #202020; }
+.card:hover .icon-item img { transform: scale(1.1); }
+
+.social-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.social-row .icon-item { width: 80px; height: 80px; aspect-ratio: unset; flex-shrink: 0; }
+.social-link {
+  display: flex;
+  border-radius: 20px;
+  outline: none;
+  transition: transform 0.18s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.social-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  border-radius: 22px;
+}
+.social-link:hover .icon-item { background: #202020; }
+.social-link:hover .icon-item img { transform: scale(1.1); }
+
+.stats-card {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  padding: 14px;
+  height: 100%;
+}
+.stat-box {
+  flex: 1;
+  background: #1A1A1A;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  transition: background 0.3s ease;
+}
+.stats-card:hover .stat-box { background: #222; }
+.stat-num { font-family: 'MigraC', serif; font-size: 48px; font-weight: 400; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+.stat-label {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 13px;
+  color: #6b6b6b;
+  text-align: center;
+  line-height: 1.4;
+  min-height: 2.8em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 120px;
+  word-break: break-word;
+}
+
+.card-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  border-radius: var(--radius);
+  height: 100%;
+}
+.card-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+/* ── МОДАЛЬНОЕ ОКНО ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: linear-gradient(135deg, #090909 35%, #191818 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: 32px;
+  padding: 36px 28px 28px;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: scale(0.88) translateY(16px);
+  transition: transform 0.35s var(--ease);
+  position: relative;
+}
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1F1F1F;
+  border: 1px solid #2a2a2a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.modal-close:hover { background: #fff; color: #000; }
+.modal-close svg { width: 14px; height: 14px; }
+.modal-label {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 12px;
+  color: #555;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.modal-title {
+  font-family: 'MigraC', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+  margin-top: -6px;
+}
+.modal-divider {
+  width: 100%;
+  height: 1px;
+  background: #222;
+  margin: 4px 0;
+}
+.modal-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.modal-go {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #0d0d0d 35%, #1a1a1a 100%);
+  border: 1px solid #1B1B1B;
+  border-radius: 18px;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+.modal-go:hover {
+  background: linear-gradient(135deg, #111 35%, #222 100%);
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+.modal-go-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.modal-icon-sm {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #242424;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.modal-icon-sm img { width: 38px; height: 38px; object-fit: contain; }
+.modal-go-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.modal-go-label {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 12px;
+  color: #555;
+}
+.modal-go-name {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+.modal-go-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.modal-go:hover .modal-go-arrow {
+  background: #fff;
+  color: #000;
+}
+.modal-go-arrow svg { width: 15px; height: 15px; }
+.modal-disclaimer {
+  font-family: 'Kinetika', sans-serif;
+  font-size: 11px;
+  color: #383838;
+  line-height: 1.5;
+  text-align: center;
+  padding-top: 4px;
+}
+
+@media (max-width: 860px) {
+  :root { --gap: 14px; }
+  body { padding: 0 14px; }
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: var(--gap);
+    margin: 14px 0 56px;
+  }
+  .c1,.c2,.c3,.c4,.c5,.c6,.c7,.c8 { grid-column: 1/2; grid-row: unset; }
+  .card { min-height: auto; border-radius: 28px; }
+
+  .hero-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    padding: 20px 24px 28px;
+  }
+  .hero-eyebrow {
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+    font-size: 12px;
+    white-space: nowrap;
+    align-self: center;
+    margin-bottom: 8px;
+  }
+  .hero-photo-wrap {
+    width: 150px;
+    height: 150px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-radius: 24px;
+    align-self: auto;
+  }
+  .hero-name { font-size: 34px; }
+  .hero-desc { font-size: 14px; max-width: 100%; }
+
+  .panel { padding: 24px; min-height: 240px; }
+  .card-link { padding: 24px; min-height: 240px; border-radius: 28px; }
+  .panel-img img { width: 50%; height: 50%; }
+  .title { font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .eyebrow { font-size: 13px; }
+  .btn { width: 44px; height: 44px; }
+  .btn svg { width: 16px; height: 16px; }
+
+  .icons-grid { gap: 8px; margin-bottom: 12px; }
+  .icon-item { border-radius: 16px; }
+
+  .social-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    flex: 1;
+    margin-bottom: 12px;
+    gap: 8px;
+    align-content: center;
+  }
+  .social-row .icon-item { width: 100%; height: auto; aspect-ratio: 1; }
+  .social-link { border-radius: 16px; }
+
+  .stats-card { flex-direction: column; padding: 14px; height: auto; gap: 10px; }
+  .stat-box { padding: 24px 20px; border-radius: 20px; width: 100%; }
+  .stat-num { font-size: 42px; }
+  .stat-label { font-size: 12px; min-height: auto; max-width: 100%; white-space: normal; }
+}
+
+/* ── АНИМАЦИЯ ПЕРЕХОДА ── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Анимация на контенте, не на body — иначе transform ломает position:fixed */
+.page-content {
+  animation: pageFadeIn 0.25s var(--ease) both;
+}
+.page-content.fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+<div class="page-content"><main class="bento-grid" id="bento">
+
+  <div class="card c1 hero-card">
+    <span class="hero-eyebrow">Графический дизайнер</span>
+    <div class="hero-photo-wrap">
+      <img
+        src="img/Daniil.png"
+        alt="Даниил Тимофеев"
+        onerror="this.closest('.hero-photo-wrap').classList.add('no-photo')"
+      >
+    </div>
+    <div class="hero-info">
+      <h1 class="hero-name">Даниил<br>Тимофеев</h1>
+      <p class="hero-desc">Я графический дизайнер<br>для вашего продукта</p>
+    </div>
+  </div>
+
+  <div class="card c2">
+    <a href="portfolio.html" class="card-link" aria-label="Посмотреть портфолио">
+      <div class="panel-img"><img src="img/Portfolio.png" alt="" aria-hidden="true"></div>
+      <div class="panel-bottom">
+        <div class="panel-text">
+          <span class="eyebrow">Мои работы</span>
+          <span class="title">Портфолио</span>
+        </div>
+        <span class="btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card c3">
+    <a href="projects.html" class="card-link" aria-label="Открытые проекты — смотреть все">
+      <div class="panel-img"><img src="img/Project.png" alt="" aria-hidden="true"></div>
+      <div class="panel-bottom">
+        <div class="panel-text">
+          <span class="eyebrow">Открытые проекты</span>
+          <span class="title">Мои проекты</span>
+        </div>
+        <span class="btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card c4 panel" aria-label="Инструменты, которые я использую">
+    <div class="icons-grid" role="list">
+      <div class="icon-item" role="listitem"><img src="img/tools/figma.png" alt="Figma"></div>
+      <div class="icon-item" role="listitem"><img src="img/tools/ps.png" alt="Adobe Photoshop"></div>
+      <div class="icon-item" role="listitem"><img src="img/tools/ai.png" alt="Adobe Illustrator"></div>
+      <div class="icon-item" role="listitem"><img src="img/tools/chatgpt.png" alt="ChatGPT"></div>
+      <div class="icon-item" role="listitem"><img src="img/tools/notion.png" alt="Notion"></div>
+    </div>
+    <div class="panel-bottom">
+      <div class="panel-text">
+        <span class="eyebrow">Программы</span>
+        <span class="title">Инструменты</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c5">
+    <a href="#" class="card-link" aria-label="Мой Telegram-канал — личная жизнь">
+      <div class="panel-img"><img src="img/telegram.png" alt="" aria-hidden="true"></div>
+      <div class="panel-bottom">
+        <div class="panel-text">
+          <span class="eyebrow">Личная жизнь</span>
+          <span class="title">Мой канал</span>
+        </div>
+        <span class="btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card c6">
+    <a href="#" class="card-link" aria-label="Прайс-лист — мои услуги и цены">
+      <div class="panel-img"><img src="img/Price.png" alt="" aria-hidden="true"></div>
+      <div class="panel-bottom">
+        <div class="panel-text">
+          <span class="eyebrow">Мои услуги</span>
+          <span class="title">Прайс-лист</span>
+        </div>
+        <span class="btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card c7 panel social-card" id="socialCardBtn" role="button" tabindex="0" aria-label="Выбрать социальную сеть" style="cursor:pointer;">
+    <div class="social-row" aria-hidden="true">
+      <div class="icon-item"><img src="img/social/telegram.png" alt=""></div>
+      <div class="icon-item"><img src="img/social/zapretgram.png" alt=""></div>
+      <div class="icon-item"><img src="img/social/vk.png" alt=""></div>
+      <div class="icon-item"><img src="img/social/max.png" alt=""></div>
+    </div>
+    <div class="panel-bottom">
+      <div class="panel-text">
+        <span class="eyebrow">Связь со мной</span>
+        <span class="title">Социальные сети</span>
+      </div>
+      <span class="btn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </div>
+
+
+  <div class="card c8 stats-card" aria-label="Статистика">
+    <div class="stat-box">
+      <div class="stat-num" aria-label="2 года опыта">02</div>
+      <div class="stat-label">Лет опыта</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" aria-label="Более 50 заказов">50+</div>
+      <div class="stat-label">Выполненных заказов</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" aria-label="Круглосуточная поддержка">24/7</div>
+      <div class="stat-label">Поддержка клиентов</div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+
+  <!-- Модалка выбора соцсети -->
+  <div class="modal-overlay" id="socialModal" role="dialog" aria-modal="true" aria-label="Выберите социальную сеть">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-label">Связь со мной</div>
+      <div class="modal-title">Соцсети</div>
+      <div class="modal-divider"></div>
+      <div class="modal-socials">
+        <a class="modal-go" href="https://t.me/" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          <div class="modal-go-left">
+            <div class="modal-icon-sm"><img src="img/social/telegram.png" alt=""></div>
+            <div class="modal-go-text">
+              <span class="modal-go-label">Мессенджер</span>
+              <span class="modal-go-name">Telegram</span>
+            </div>
+          </div>
+          <div class="modal-go-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+        <a class="modal-go" href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <div class="modal-go-left">
+            <div class="modal-icon-sm"><img src="img/social/zapretgram.png" alt=""></div>
+            <div class="modal-go-text">
+              <span class="modal-go-label">Соцсеть</span>
+              <span class="modal-go-name">Instagram</span>
+            </div>
+          </div>
+          <div class="modal-go-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+        <a class="modal-go" href="https://vk.com/" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+          <div class="modal-go-left">
+            <div class="modal-icon-sm"><img src="img/social/vk.png" alt=""></div>
+            <div class="modal-go-text">
+              <span class="modal-go-label">Соцсеть</span>
+              <span class="modal-go-name">ВКонтакте</span>
+            </div>
+          </div>
+          <div class="modal-go-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+        <a class="modal-go" href="https://max.ru/" target="_blank" rel="noopener noreferrer" aria-label="Max">
+          <div class="modal-go-left">
+            <div class="modal-icon-sm"><img src="img/social/max.png" alt=""></div>
+            <div class="modal-go-text">
+              <span class="modal-go-label">Мессенджер</span>
+              <span class="modal-go-name">Max</span>
+            </div>
+          </div>
+          <div class="modal-go-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+      </div>
+      <p class="modal-disclaimer">* Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории РФ.</p>
+    </div>
+  </div>
+
+<script>
+  function makeSquare() {
+    const grid = document.getElementById('bento');
+    if (window.innerWidth <= 860) {
+      grid.style.gridTemplateRows = '';
+      return;
+    }
+    const unit = (grid.offsetWidth - 11 * 18) / 12 * 3 + 2 * 18;
+    grid.style.gridTemplateRows = `repeat(3, ${unit}px)`;
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(makeSquare, 100);
+  });
+
+  makeSquare();
+
+  // Модалка соцсетей
+  const overlay = document.getElementById('socialModal');
+
+  function openModal() {
+    overlay.classList.add('open');
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+  }
+
+  const socialCard = document.getElementById('socialCardBtn');
+  socialCard.addEventListener('click', openModal);
+  socialCard.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+  });
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Плавный переход при клике на ссылки
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target === '_blank') return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector('.page-content').classList.add('fade-out');
+      setTimeout(() => { window.location.href = href; }, 180);
+    });
+  });
+
+</script>
+</body>
+</html>
